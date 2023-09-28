@@ -11,14 +11,31 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('')
 
+  const doesExist = () => {
+    for (const person of persons) {
+      console.log(person.name)
+      if (JSON.stringify(person.name) === JSON.stringify(newName)) {
+
+        return true
+      }
+    }
+
+    return false;
+  }
+
   const addName = (event) => {
     event.preventDefault()
-    const personObject = {
-      name: newName,
-      id: persons.length + 1,
+    if (doesExist()) {
+      alert(`${newName} is already added to phonebook`)
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
+    else {
+      const personObject = {
+        name: newName,
+        id: persons.length + 1,
+      }
+      setPersons(persons.concat(personObject))
+      setNewName('')
+    }
   }
 
   const handlePersonChange = (event) => {
