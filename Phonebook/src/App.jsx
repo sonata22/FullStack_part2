@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import PersonsData from './components/PersonsData'
+import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -92,10 +93,7 @@ const App = () => {
         </form>
       </div>
       <h2>Numbers</h2>
-      <ul>{personsFiltered.map(person =>
-        <PersonsData key={person.id} person={person} />
-      )}
-      </ul>
+      <Persons personsFiltered={personsFiltered} />
     </div>
   )
 }
