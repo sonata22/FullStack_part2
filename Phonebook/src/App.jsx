@@ -8,10 +8,22 @@ const App = () => {
       id: 1,
       name: 'Arto Hellas',
       phoneNumber: '39-44-53233523',
-    }
+    },
+    {
+      id: 2,
+      name: 'Banana Man',
+      phoneNumber: '8-800-555-35-35',
+    },
+    {
+      id: 3,
+      name: 'Holy Cow',
+      phoneNumber: '1-111-111-11-11',
+    },
   ])
+
   const [newName, setNewName] = useState('')
   const [newPhoneNum, setNewPhoneNum] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const doesExist = () => {
     for (const person of persons) {
@@ -42,31 +54,45 @@ const App = () => {
 
   const handlePersonChange = event => setNewName(event.target.value)
   const handlePhoneNumChange = event => setNewPhoneNum(event.target.value)
+  const handleSearchQueryChange = event => setSearchQuery(event.target.value)
+
+  const personsFiltered = persons.filter((person) => person.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={addName} >
+      <div>
+        <h2>Phonebook</h2>
         <div>
-          name:
+          Filter names by
           <input
-            value={newName}
-            onChange={handlePersonChange}
-          />
+            value={searchQuery}
+            onChange={handleSearchQueryChange} />
         </div>
-        <div>
-          number:
-          <input
-            value={newPhoneNum}
-            onChange={handlePhoneNumChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      </div>
+      <div>
+        <h2>Add New</h2>
+        <form onSubmit={addName} >
+          <div>
+            name:
+            <input
+              value={newName}
+              onChange={handlePersonChange}
+            />
+          </div>
+          <div>
+            number:
+            <input
+              value={newPhoneNum}
+              onChange={handlePhoneNumChange}
+            />
+          </div>
+          <div>
+            <button type="submit">add</button>
+          </div>
+        </form>
+      </div>
       <h2>Numbers</h2>
-      <ul>{persons.map(person =>
+      <ul>{personsFiltered.map(person =>
         <PersonsData key={person.id} person={person} />
       )}
       </ul>
