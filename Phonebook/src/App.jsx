@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import PersonsData from './components/PersonsData'
 import Persons from './components/Persons'
+import Filter from './components/Filter'
+import PersonsForm from './components/PersonsForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -19,6 +20,11 @@ const App = () => {
       id: 3,
       name: 'Holy Cow',
       phoneNumber: '1-111-111-11-11',
+    },
+    {
+      id: 4,
+      name: 'Mr. Wonder Pants',
+      phoneNumber: '7-777-777-77-77',
     },
   ])
 
@@ -63,34 +69,17 @@ const App = () => {
     <div>
       <div>
         <h2>Phonebook</h2>
-        <div>
-          Filter names by
-          <input
-            value={searchQuery}
-            onChange={handleSearchQueryChange} />
-        </div>
+        <Filter query={searchQuery} handleFunction={handleSearchQueryChange} />
       </div>
       <div>
         <h2>Add New</h2>
-        <form onSubmit={addName} >
-          <div>
-            name:
-            <input
-              value={newName}
-              onChange={handlePersonChange}
-            />
-          </div>
-          <div>
-            number:
-            <input
-              value={newPhoneNum}
-              onChange={handlePhoneNumChange}
-            />
-          </div>
-          <div>
-            <button type="submit">add</button>
-          </div>
-        </form>
+        <PersonsForm
+          addName={addName}
+          newName={newName}
+          handlePersonChange={handlePersonChange}
+          newPhoneNum={newPhoneNum}
+          handlePhoneNumChange={handlePhoneNumChange}
+        />
       </div>
       <h2>Numbers</h2>
       <Persons personsFiltered={personsFiltered} />

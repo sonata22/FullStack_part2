@@ -1,13 +1,17 @@
+const DisplayPersonsDataEntry = ({ name, entry }) => {
+    return (
+        <p>
+            {name}: {entry}
+        </p>
+    )
+}
+
 const PersonsData = ({ person }) => {
     return (
         <li>
-            <p>
-                Id: {person.id}
-                <br />
-                Name: {person.name}
-                <br />
-                Number: {person.phoneNumber}
-            </p>
+            <DisplayPersonsDataEntry name={'Id'} entry={person.id} />
+            <DisplayPersonsDataEntry name={'Name'} entry={person.name} />
+            <DisplayPersonsDataEntry name={'Number'} entry={person.phoneNumber} />
         </li>
     )
 }
