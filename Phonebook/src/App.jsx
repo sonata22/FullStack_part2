@@ -1,32 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    {
-      id: 1,
-      name: 'Arto Hellas',
-      phoneNumber: '39-44-53233523',
-    },
-    {
-      id: 2,
-      name: 'Banana Man',
-      phoneNumber: '8-800-555-35-35',
-    },
-    {
-      id: 3,
-      name: 'Holy Cow',
-      phoneNumber: '1-111-111-11-11',
-    },
-    {
-      id: 4,
-      name: 'Mr. Wonder Pants',
-      phoneNumber: '7-777-777-77-77',
-    },
-  ])
+  const [persons, setPersons] = useState([])
+
+  useEffect(() => {
+    console.log("effect")
+    axios
+      .get("http://localhost:3001/persons")
+      .then(response => {
+        console.log("promise fulfilled")
+        setPersons(response.data)
+      })
+  }, [])
+  console.log("render", persons.length, "notes")
 
   const [newName, setNewName] = useState('')
   const [newPhoneNum, setNewPhoneNum] = useState('')
@@ -51,7 +42,7 @@ const App = () => {
       const personObject = {
         id: persons.length + 1,
         name: newName,
-        phoneNumber: newPhoneNum,
+        number: newPhoneNum,
       }
       setPersons(persons.concat(personObject))
       setNewName('')

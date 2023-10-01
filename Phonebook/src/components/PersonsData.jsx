@@ -11,7 +11,7 @@ const PersonsData = ({ person }) => {
         <li>
             <DisplayPersonsDataEntry name={'Id'} entry={person.id} />
             <DisplayPersonsDataEntry name={'Name'} entry={person.name} />
-            <DisplayPersonsDataEntry name={'Number'} entry={person.phoneNumber} />
+            <DisplayPersonsDataEntry name={'Number'} entry={person.number} />
         </li>
     )
 }
