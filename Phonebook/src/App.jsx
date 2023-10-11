@@ -33,7 +33,21 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     if (doesExist()) {
-      alert(`${newName} is already added to the Phonebook`)
+      if (window.confirm(`${newName} is already added to the Phonebook, wanna replace existing number with the new one?`)) {
+        const existingPerson = persons.find(person => person.name === newName)
+        const changedPerson = { ...existingPerson, number: newPhoneNum }
+
+        personService
+          .update(changedPerson.id, changedPerson)
+          .then(response => {
+            setPersons(
+              persons.map(
+                person => person.id == existingPerson.id
+                  ? person = response : person = person))
+          })
+        setNewName('')
+        setNewPhoneNum('')
+      }
     }
     else {
       const currentDate = new Date();
