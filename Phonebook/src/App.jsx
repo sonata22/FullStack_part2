@@ -33,7 +33,7 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     if (doesExist()) {
-      alert(`${newName} is already added to the phonebook`)
+      alert(`${newName} is already added to the Phonebook`)
     }
     else {
       const currentDate = new Date();
