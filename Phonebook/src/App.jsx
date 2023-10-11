@@ -5,9 +5,10 @@ import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
 import axios from 'axios'
 
+export const baseUrl = 'http://localhost:3001/persons'
+
 const App = () => {
   const [persons, setPersons] = useState([])
-  const baseUrl = 'http://localhost:3001/persons'
 
   useEffect(() => {
     axios
@@ -37,8 +38,9 @@ const App = () => {
       alert(`${newName} is already added to the phonebook`)
     }
     else {
+      const currentDate = new Date();
       const personObject = {
-        id: persons.length + 1,
+        id: currentDate,
         name: newName,
         number: newPhoneNum,
       }
@@ -49,6 +51,15 @@ const App = () => {
         })
       setNewName('')
       setNewPhoneNum('')
+    }
+  }
+
+  const handleDelete = (id) => {
+    if (window.confirm(`You are going to delete note with id=${id}, are you sure?`)) {
+      axios.delete(`${baseUrl}/${id}`)
+      console.log(`deleted by ID=${id} from the server`)
+      setPersons(persons.filter(person => person.id !== id))
+      console.log(`deleted by ID=${id} from the persons object`)
     }
   }
 
@@ -75,7 +86,7 @@ const App = () => {
         />
       </div>
       <h2>Numbers</h2>
-      <Persons personsFiltered={personsFiltered} />
+      <Persons personsFiltered={personsFiltered} handleDelete={handleDelete} />
     </div>
   )
 }
