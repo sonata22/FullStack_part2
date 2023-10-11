@@ -7,17 +7,15 @@ import axios from 'axios'
 
 const App = () => {
   const [persons, setPersons] = useState([])
+  const baseUrl = 'http://localhost:3001/persons'
 
   useEffect(() => {
-    console.log("effect")
     axios
-      .get("http://localhost:3001/persons")
+      .get(baseUrl)
       .then(response => {
-        console.log("promise fulfilled")
         setPersons(response.data)
       })
   }, [])
-  console.log("render", persons.length, "notes")
 
   const [newName, setNewName] = useState('')
   const [newPhoneNum, setNewPhoneNum] = useState('')
@@ -44,7 +42,11 @@ const App = () => {
         name: newName,
         number: newPhoneNum,
       }
-      setPersons(persons.concat(personObject))
+      axios
+        .post(baseUrl, personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+        })
       setNewName('')
       setNewPhoneNum('')
     }
