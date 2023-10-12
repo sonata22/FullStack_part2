@@ -13,7 +13,7 @@ const FormEntry = ({ name, value, onChange }) => {
 const PersonsForm = ({ addName, newName, handlePersonChange, newPhoneNum, handlePhoneNumChange }) => {
 
     return (
-        <form onSubmit={addName} >
+        <form onSubmit={addName} className='addPersonForm'>
             <FormEntry name={'Name'} value={newName} onChange={handlePersonChange} />
             <FormEntry name={'Number'} value={newPhoneNum} onChange={handlePhoneNumChange} />
             <div>

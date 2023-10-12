@@ -5,6 +5,18 @@ import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
 import personService from './services/persons'
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className='submited'>
+      {message}
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([])
 
@@ -19,6 +31,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhoneNum, setNewPhoneNum] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
+  const [successMessage, setSuccessMessage] = useState("null")
 
   const doesExist = () => {
     for (const person of persons) {
@@ -61,6 +74,14 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
         })
+        .then(() => {
+          setSuccessMessage(
+            `${personObject.name}'s successfully added to the Phonebook.`
+          )
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 5000)
+        })
       setNewName('')
       setNewPhoneNum('')
     }
@@ -95,6 +116,7 @@ const App = () => {
           newPhoneNum={newPhoneNum}
           handlePhoneNumChange={handlePhoneNumChange}
         />
+        <Notification message={successMessage} />
       </div>
       <h2>Numbers</h2>
       <Persons personsFiltered={personsFiltered} handleDelete={handleDelete} />
