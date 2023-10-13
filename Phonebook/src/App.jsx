@@ -5,13 +5,35 @@ import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
 import personService from './services/persons'
 
-const Notification = ({ message }) => {
+const Notification = ({ message, submitted }) => {
   if (message === null) {
     return null
   }
 
+  const successStyle = {
+    color: "green",
+    background: "blue",
+    fontSize: 20,
+    borderStyle: "solid",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    marginTop: 10
+  }
+
+  const errorStyle = {
+    color: "red",
+    background: "blue",
+    fontSize: 20,
+    borderStyle: "solid",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    marginTop: 10
+  }
+
   return (
-    <div className='submited'>
+    <div className={`${submitted === "errorStyle" ? errorStyle : successStyle}`}>
       {message}
     </div>
   )
@@ -31,7 +53,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhoneNum, setNewPhoneNum] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
-  const [successMessage, setSuccessMessage] = useState("null")
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const doesExist = () => {
     for (const person of persons) {
@@ -58,6 +81,15 @@ const App = () => {
                 person => person.id == existingPerson.id
                   ? person = response : person = person))
           })
+          .catch((error) => {
+            setErrorMessage(
+              `Information of '${changedPerson.name}' was already deleted from server.`
+            )
+            setPersons(persons.filter(person => person.id !== changedPerson.id))
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
         setNewName('')
         setNewPhoneNum('')
       }
@@ -76,7 +108,7 @@ const App = () => {
         })
         .then(() => {
           setSuccessMessage(
-            `${personObject.name}'s successfully added to the Phonebook.`
+            `${personObject.name} successfully added to the Phonebook.`
           )
           setTimeout(() => {
             setSuccessMessage(null)
@@ -116,7 +148,8 @@ const App = () => {
           newPhoneNum={newPhoneNum}
           handlePhoneNumChange={handlePhoneNumChange}
         />
-        <Notification message={successMessage} />
+        <Notification message={successMessage} styleOption={"successStyle"} />
+        <Notification message={errorMessage} styleOption={"errorStyle"} />
       </div>
       <h2>Numbers</h2>
       <Persons personsFiltered={personsFiltered} handleDelete={handleDelete} />

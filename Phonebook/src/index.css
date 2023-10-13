@@ -16,8 +16,19 @@ li {
 }
 
 .submited {
-    color: rgb(11, 184, 115);
-    background: rgba(195, 249, 234, 0.578);
+    color: #0bb873;
+    background: #c3f9ea93;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.error {
+    color: #b80b4b;
+    background: #d6266493;
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
