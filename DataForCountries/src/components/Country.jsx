@@ -2,7 +2,7 @@ import { useState } from "react"
 
 const ShowContent = ({ country, isVisible }) => {
     const countryStyle = {
-        border: "solid 1px",
+        borderLeft: "solid 1px",
         margin: "10px",
         padding: "10px",
     }
@@ -10,11 +10,13 @@ const ShowContent = ({ country, isVisible }) => {
     if (!isVisible) {
         return ""
     }
+
     return (
         <div key={country.name.official} style={countryStyle} >
             <h2>{country.name.common}</h2>
-            <p>Capital: {country.capital}</p>
-            <p>Area: {country.area}</p>
+            <p>Capital: {country.capital}
+                <br />
+                Area: {country.area}</p>
             <h3>Languages</h3>
             {Object.values(country.languages)
                 .map(language =>
@@ -22,7 +24,8 @@ const ShowContent = ({ country, isVisible }) => {
                         {language}
                     </li>)}
             <img src={country.flags.png} alt="Flag" width={100} />
-        </div>)
+        </div>
+        )
 }
 
 const Country = ({ country }) => {

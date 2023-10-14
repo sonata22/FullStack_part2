@@ -1,4 +1,5 @@
 import Country from "./Country"
+import SingleCountry from "./SingleCountry"
 
 const CountriesFiltered = ({ countriesFiltered }) => {
     if (countriesFiltered.length == 0) {
@@ -9,23 +10,14 @@ const CountriesFiltered = ({ countriesFiltered }) => {
         )
     }
     if (countriesFiltered.length == 1) {
-
         return (
             <>
                 {
                     countriesFiltered.map(country =>
                         <div key={country.name.official} >
-                            <h2>{country.name.common}</h2>
-                            <p>Capital: {country.capital}</p>
-                            <p>Area: {country.area}</p>
-                            <h3>Languages</h3>
-                            {Object.values(country.languages)
-                                .map(language =>
-                                    <li key={language} >
-                                        {language}
-                                    </li>)}
-                            <img src={country.flags.png} alt="Flag" width={100} />
+                            <SingleCountry country={country} />
                         </div>
+
                     )
                 }
             </>
