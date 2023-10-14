@@ -30,7 +30,11 @@ const Notification = ({ message, styleOption }) => {
   }
 
   return (
-    <div style={{...notification, ...(styleOption ? error : success)}}>
+    <div style={{
+      ...notification,
+      ...(styleOption.error ? error : ""),
+      ...(styleOption.success ? success : "")
+    }}>
       {message}
     </div>
   )
@@ -145,8 +149,12 @@ const App = () => {
           newPhoneNum={newPhoneNum}
           handlePhoneNumChange={handlePhoneNumChange}
         />
-        <Notification message={successMessage} styleOption={false} />
-        <Notification message={errorMessage} styleOption={true} />
+        <Notification
+          message={successMessage}
+          styleOption={{ error: false, success: true }} />
+        <Notification
+          message={errorMessage}
+          styleOption={{ error: true, success: false }} />
       </div>
       <h2>Numbers</h2>
       <Persons personsFiltered={personsFiltered} handleDelete={handleDelete} />
