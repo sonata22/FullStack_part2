@@ -5,7 +5,7 @@ import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
 import personService from './services/persons'
 
-const Notification = ({ message, submitted }) => {
+const Notification = ({ message, styleOption }) => {
   if (message === null) {
     return null
   }
@@ -33,7 +33,7 @@ const Notification = ({ message, submitted }) => {
   }
 
   return (
-    <div className={`${submitted === "errorStyle" ? errorStyle : successStyle}`}>
+    <div className={`${styleOption ? "errorStyle" : "successStyle"}`}>
       {message}
     </div>
   )
@@ -148,8 +148,8 @@ const App = () => {
           newPhoneNum={newPhoneNum}
           handlePhoneNumChange={handlePhoneNumChange}
         />
-        <Notification message={successMessage} styleOption={"successStyle"} />
-        <Notification message={errorMessage} styleOption={"errorStyle"} />
+        <Notification message={successMessage} styleOption={false} />
+        <Notification message={errorMessage} styleOption={true} />
       </div>
       <h2>Numbers</h2>
       <Persons personsFiltered={personsFiltered} handleDelete={handleDelete} />

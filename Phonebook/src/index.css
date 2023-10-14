@@ -15,7 +15,7 @@ li {
     width: 250px;
 }
 
-.submited {
+.successStyle {
     color: #0bb873;
     background: #c3f9ea93;
     font-size: 20px;
@@ -26,7 +26,7 @@ li {
     margin-top: 10px;
 }
 
-.error {
+.errorStyle {
     color: #b80b4b;
     background: #d6266493;
     font-size: 20px;
