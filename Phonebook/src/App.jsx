@@ -3,45 +3,16 @@ import { useState, useEffect } from 'react'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonsForm from './components/PersonsForm'
+import Notification from './components/Notification'
 import personService from './services/persons'
-
-const Notification = ({ message, styleOption }) => {
-  if (message === null) {
-    return null
-  }
-
-  const success = {
-    color: "#0bb873",
-    background: "#c3f9ea93",
-  }
-
-  const error = {
-    color: "#b80b4b",
-    background: "#d6266493",
-  }
-
-  let notification = {
-    fontSize: 20,
-    borderStyle: "solid",
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-    marginTop: 10
-  }
-
-  return (
-    <div style={{
-      ...notification,
-      ...(styleOption.error ? error : ""),
-      ...(styleOption.success ? success : "")
-    }}>
-      {message}
-    </div>
-  )
-}
 
 const App = () => {
   const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState('')
+  const [newPhoneNum, setNewPhoneNum] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [notificationMessage, setNotificationMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -50,12 +21,6 @@ const App = () => {
         setPersons(initialPersons)
       })
   }, [])
-
-  const [newName, setNewName] = useState('')
-  const [newPhoneNum, setNewPhoneNum] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [successMessage, setSuccessMessage] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
 
   const doesExist = () => {
     for (const person of persons) {
@@ -83,12 +48,12 @@ const App = () => {
                   ? person = response : person = person))
           })
           .catch((error) => {
-            setErrorMessage(
+            setNotificationMessage(
               `Information of '${changedPerson.name}' was already deleted from server.`
             )
             setPersons(persons.filter(person => person.id !== changedPerson.id))
             setTimeout(() => {
-              setErrorMessage(null)
+              setNotificationMessage(null)
             }, 5000)
           })
         setNewName('')
@@ -153,7 +118,7 @@ const App = () => {
           message={successMessage}
           styleOption={{ error: false, success: true }} />
         <Notification
-          message={errorMessage}
+          message={notificationMessage}
           styleOption={{ error: true, success: false }} />
       </div>
       <h2>Numbers</h2>
