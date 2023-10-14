@@ -10,20 +10,17 @@ const Notification = ({ message, styleOption }) => {
     return null
   }
 
-  const successStyle = {
-    color: "green",
-    background: "blue",
-    fontSize: 20,
-    borderStyle: "solid",
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-    marginTop: 10
+  const success = {
+    color: "#0bb873",
+    background: "#c3f9ea93",
   }
 
-  const errorStyle = {
-    color: "red",
-    background: "blue",
+  const error = {
+    color: "#b80b4b",
+    background: "#d6266493",
+  }
+
+  let notification = {
     fontSize: 20,
     borderStyle: "solid",
     borderRadius: 5,
@@ -33,7 +30,7 @@ const Notification = ({ message, styleOption }) => {
   }
 
   return (
-    <div className={`${styleOption ? "errorStyle" : "successStyle"}`}>
+    <div style={{...notification, ...(styleOption ? error : success)}}>
       {message}
     </div>
   )

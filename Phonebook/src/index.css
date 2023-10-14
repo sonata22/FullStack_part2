@@ -18,17 +18,14 @@ li {
 .successStyle {
     color: #0bb873;
     background: #c3f9ea93;
-    font-size: 20px;
-    border-style: solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
 }
 
 .errorStyle {
     color: #b80b4b;
     background: #d6266493;
+}
+
+.notification {
     font-size: 20px;
     border-style: solid;
     border-radius: 5px;
