@@ -1,3 +1,5 @@
+import Country from "./Country"
+
 const CountriesFiltered = ({ countriesFiltered }) => {
     if (countriesFiltered.length == 0) {
         return (
@@ -40,9 +42,10 @@ const CountriesFiltered = ({ countriesFiltered }) => {
         <>
             {
                 countriesFiltered.map(country =>
-                    <pre key={country.name.official} >
+                    <div key={country.name.official} >
                         {country.name.common}
-                    </pre>
+                        <Country key={country.name.common} country={country} />
+                    </div>
                 )
             }
         </>
