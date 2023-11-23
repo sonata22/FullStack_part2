@@ -48,13 +48,23 @@ const App = () => {
                   ? person = response : person = person))
           })
           .catch((error) => {
-            setNotificationMessage(
-              `Information of '${changedPerson.name}' was already deleted from server.`
-            )
-            setPersons(persons.filter(person => person.id !== changedPerson.id))
-            setTimeout(() => {
-              setNotificationMessage(null)
-            }, 5000)
+            if (error.response.data.error) {
+              setNotificationMessage(
+                `${error.response.data.error}`
+              )
+              setTimeout(() => {
+                setNotificationMessage(null)
+              }, 5000)
+            } else {
+              setNotificationMessage(
+                `Information of '${changedPerson.name}' was already deleted from server.`
+              )
+              setPersons(persons.filter(person => person.id !== changedPerson.id))
+              setTimeout(() => {
+                setNotificationMessage(null)
+              }, 5000)
+            }
+
           })
         setNewName('')
         setNewPhoneNum('')
@@ -78,6 +88,14 @@ const App = () => {
           )
           setTimeout(() => {
             setSuccessMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setNotificationMessage(
+            `${error.response.data.error}`
+          )
+          setTimeout(() => {
+            setNotificationMessage(null)
           }, 5000)
         })
       setNewName('')
